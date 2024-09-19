@@ -1,0 +1,888 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+ <head>
+  <title>Cisco CSS  Security Report</title>
+  <meta name="description" content="Cisco *ABBREV*CSS*-ABBREV*  Security Report">
+  <meta name="author" content="Nipper">
+  <META http-equiv="Content-Style-Type" content="text/css">
+  <style type='text/css'>
+  <!--
+  * {margin: 0; padding: 0;}
+body {font-size: 80%; margin: 10px; padding: 0px; font-family: Verdana, Helvetica, Arial, sans-serif; width: 760px; color: #333333;}
+caption { caption-side : bottom; font-style : italic;}
+h1 {font-size: 250%; margin-top: 10px;}
+h2 {font-size: 200%; margin-top: 25px; margin-bottom: 0px; padding: 5px; background-color: #ECE3FD; border-top: 2px solid #BA9BD4; border-bottom: 1px solid #BA9BD4}
+h3 {font-size: 150%; font-weight: normal; padding: 5px; background-color: #E8EDFD; margin-top: 10px; border-top: 2px solid #8080E4;}
+h5 {font-size: 110%;}
+p {margin-bottom: 15px; text-align: justify; }
+div {margin-bottom: 0px; margin-top: 0px; text-align: justify; }
+table {clear: left; border: solid 1px rgb(150,150,150); empty-cells: show; border-collapse: collapse; background-color: #F5F2FF; width: 100%; text-align: left; margin-bottom: 0px;}
+tr.evenrow {background-color: #EDEBF8;}
+th {background-color: rgb(150,150,150); color: #ffffff; vertical-align: top; padding: 2px;}
+td {vertical-align: top; padding: 2px;}
+ul {margin-left: 20px; margin-top: 0px; margin-bottom: 20px;}
+div.ratings {float:right; width:150px; padding:7px; margin:3px; font-size:14px; font-family:arial,helvetica,sans-serif; color:black; background-color: #FDFFE2; border:1px solid #D5D274; vertical-align:top; }
+font.critical {color: #CD0A3B; text-transform:uppercase; font-weight: bold;}
+font.high {color: #E2A316; text-transform:uppercase; font-weight: bold;}
+font.medium {color: #ECEC04; text-transform:uppercase; font-weight: bold;}
+font.low {color: #9DCA02; text-transform:uppercase; font-weight: bold;}
+font.informational {color: #41A300; text-transform:uppercase; font-weight: bold;}
+font.trivial {color: #CD0A3B; text-transform:uppercase; font-weight: bold;}
+font.easy {color: #E2A316; text-transform:uppercase; font-weight: bold;}
+font.moderate {color: #ECEC04;text-transform:uppercase;  font-weight: bold;}
+font.challenging {color: #9DCA02; text-transform:uppercase; font-weight: bold;}
+font.notapplicable {color: #41A300; text-transform:uppercase; font-weight: bold;}
+font.involved {color: #CD0A3B; text-transform:uppercase; font-weight: bold;}
+font.planned {color: #ECEC04; text-transform:uppercase; font-weight: bold;}
+font.quick {color: #41A300; text-transform:uppercase; font-weight: bold;}
+font.overallrating {font-weight: bold; font-size:15px; padding-bottom: 5px; }
+font.ratings {position: relative; left: 70px;}
+#frontpage {height: 400px; background-color: #F3F3F3; border:1px solid #120E8A;}
+div.companyname {color: #18026B; font-weight: bold; font-size: 250%; text-align: center;}
+div.reporttitle {color: #2A2A2F; font-weight: bold; font-size: 200%; text-align: center; margin-top: 100px;}
+div.reportdate {color: #2A2A2F; font-size: 150%; text-align: center; text-transform: uppercase}
+#contents {margin-left: 50px;}
+#tableindex {margin-left: 50px;}
+pre.code {background-color: #F3F3F3; padding-top: 5px; padding-bottom: 5px; margin-top: 5px; margin-bottom: 15px; font-weight: bold;font-family: courier; font-size: 100%}
+.cmduser {font-style: italic; font-weight: normal}
+  --></style>
+ </head>
+ <body id="report">
+<div id="frontpage">
+<div class="companyname">Nipper</div>
+<div class="reporttitle">Cisco CSS  Security Report</div>
+<div class="reportdate">Thursday 19th September 2024</div>
+</div>
+<div id="contents">
+ <h2>Contents</h2><br>
+<b>1. <a href="#ABOUTYOURREPORTSECTION">About Your Report</a></b><br>
+&nbsp;&nbsp;&nbsp;&nbsp;1.1. <a href="#ABOUTREPORTORGANISATION">Organisation</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;1.2. <a href="#ABOUTREPORTCONVENTIONS">Conventions</a><br>
+<b>2. <a href="#SECURITYSECTION">Security Audit</a></b><br>
+&nbsp;&nbsp;&nbsp;&nbsp;2.1. <a href="#GEN.SECINTRO.1">Introduction</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;2.2. <a href="#GEN.ADMITELN.1">Clear Text Telnet Service Enabled</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;2.3. <a href="#GEN.ADMIFTPC.1">Clear Text FTP Service Enabled</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;2.4. <a href="#GEN.FILTNOFI.1">No ACLs Were Configured</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;2.5. <a href="#CSS.FILTNOAC.1">ACL Were Not Active</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;2.6. <a href="#GEN.ADMISSH1.1">SSH Protocol Version 1 Supported</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;2.7. <a href="#GEN.ADMICOTM.1">No Connection Timeout</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;2.8. <a href="#CSS.ADMIREST.1">User Administrative Restrictions Disabled</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;2.9. <a href="#GEN.BANRPREL.1">No Pre-Logon Banner Message</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;2.10. <a href="#CSS.COREDUMP.1">Core Dumps Enabled</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;2.11. <a href="#GEN.INTEACTI.1">Potentially Unused Network Interfaces</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;2.12. <a href="#GEN.SECCONCL.1">Conclusions</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;2.13. <a href="#GEN.SECRECOM.1">Recommendations</a><br>
+<b>0. <a href="#COMPLIANCESECTION">Compliance Testing</a></b><br>
+<b>3. <a href="#CONFIGURATIONSECTION">Device Configuration</a></b><br>
+&nbsp;&nbsp;&nbsp;&nbsp;3.1. <a href="#CONFIG-INTRODUCTION">Introduction</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;3.2. <a href="#CONFIG-GENERAL">General Device Settings</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;3.3. <a href="#CONFIG-SERVICES">Network Services</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;3.4. <a href="#CONFIG-ADMIN">Administration Settings</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;3.5. <a href="#CONFIG-DNS">Name Resolution Settings</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;3.6. <a href="#CONFIG-SNMP">SNMP Settings</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;3.7. <a href="#CONFIG-INTERFACE">Network Interface Settings</a><br>
+<b>4. <a href="#APPENDIXSECTION">Appendix</a></b><br>
+&nbsp;&nbsp;&nbsp;&nbsp;4.1. <a href="#APPENDIX-ABBREV">Abbreviations</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;4.2. <a href="#APPENDIX-PORTS">Common Network Ports</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;4.3. <a href="#APPENDIX-PROTOCOLS">IP Protocols</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;4.4. <a href="#APPENDIX-ICMPTYPES">ICMP Types</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;4.5. <a href="#APPENDIX-NIPPERVER">Nipper Details</a><br>
+</div>
+<div id="tableindex">
+ <h2>Index Of Tables</h2><br>
+Table 1. <a href="#INTRO-CONVENTIONS-TABLE">Report text conventions</a><br>
+Table 2. <a href="#SEC-INTIMPACT-TABLE">Impact ratings</a><br>
+Table 3. <a href="#SEC-INTEASE-TABLE">Ease ratings</a><br>
+Table 4. <a href="#SEC-INTFIX-TABLE">Fix ratings</a><br>
+Table 5. <a href="#SEC-ACTINTERFACES-TABLE">Network interfaces were active and potentially unused</a><br>
+Table 6. <a href="#SEC-RECOMMEN-TABLE">Recommendations</a><br>
+Table 7. <a href="#CONFIG-GENERAL-TABLE">General device settings</a><br>
+Table 8. <a href="#CONFIG-SERVICES-TABLE">Network services</a><br>
+Table 9. <a href="#CONFIG-ADMINGENERAL-TABLE">General administration settings</a><br>
+Table 10. <a href="#CONFIG-ADMINTELNET-TABLE">Telnet service settings</a><br>
+Table 11. <a href="#CONFIG-ADMINSSH-TABLE">SSH service settings</a><br>
+Table 12. <a href="#CONFIG-ADMINHTTP-TABLE">XML service settings</a><br>
+Table 13. <a href="#CONFIG-ADMINFTP-TABLE">FTP service settings</a><br>
+Table 14. <a href="#CONFIG-DNSCLIENT-TABLE">DNS client configuration</a><br>
+Table 15. <a href="#CONFIG-DNSSERVER-TABLE">DNS server configuration</a><br>
+Table 16. <a href="#CONFIG-SNMP-TABLE">SNMP settings</a><br>
+Table 17. <a href="#CONFIG-INTERFACES-TABLE">Network interfaces</a><br>
+Table 18. <a href="#APPENDIX-ABBREV-TABLE">Abbreviations</a><br>
+Table 19. <a href="#APPENDIX-PORTS-TABLE">Common network ports</a><br>
+Table 20. <a href="#APPENDIX-PROTOCOL-TABLE">IP protocols</a><br>
+Table 21. <a href="#APPENDIX-ICMPTYPES-TABLE">ICMP types</a><br>
+</div>
+<div id="about">
+ <h2>1. <a name="ABOUTYOURREPORTSECTION">About Your Report</a></h2><br>
+<div id="ABOUTREPORTORGANISATION">
+ <h3>1.1. Organisation</h3><br>
+<p>This Cisco Content Services Switch (CSS) report was produced by Nipper on Thursday 19th September 2024. The report is comprised of the following sections:<ul>
+<li>a security audit report section that details any identified security-related issues. Each security issue includes a finding, its impact, how easy it would be for an attacker to exploit and a recommendation. The recommendations include, where appropriate, the command(s) to mitigate the issue;</li>
+<li>a compliance audit section that details which Cisco CSS configuration settings that are compiant with the configuration policy and those that are not;</li>
+<li>a configuration report section that details the Cisco CSS configuration settings;</li>
+<li>an abbreviations appendix section that expands any abbreviations used within the report;</li>
+<li>a common ports appendix section that details the TCP and UDP port numbers for the common services outlined within the report;</li>
+<li>an appendix section detailing the severity levels used by the logging facility;</li>
+<li>a time zones appendix section that details a number of the most commonly used time zones;</li>
+<li>an appendix section detailing the software used to produce this report.</li>
+</ul>
+</p>
+</div>
+<div id="ABOUTREPORTCONVENTIONS">
+ <h3>1.2. Conventions</h3><br>
+<p>This report makes use of the text conventions outlined in Table <a href="#INTRO-CONVENTIONS-TABLE">1</a>.<a name="INTRO-CONVENTIONS-TABLE"></a><table class="reporttable">
+ <caption>Table 1: Report text conventions</caption>
+ <thead>
+  <tr>
+   <th>Convention</th>
+   <th>Description</th>
+  </tr>
+</thead>
+ <tbody>
+<tr><td>command
+</td><td>This text style represents the Cisco CSS command text that has to be entered literally.</td></tr>
+<tr class="evenrow"><td><span class="cmduser">string</span>
+</td><td>This text style represents the Cisco CSS command text that you have to enter.</td></tr>
+<tr><td><span class="cmdoption">[ ]</span>
+</td><td>Used to enclose a Cisco CSS command option.</td></tr>
+<tr class="evenrow"><td><span class="cmdrequire">{ }</span>
+</td><td>Used to enclose a Cisco CSS command requirement.</td></tr>
+<tr><td>|
+</td><td>Divides command option or requirement choices.</td></tr>
+ </tbody>
+</table>
+</p>
+</div>
+</div>
+<div id="security">
+ <h2>2. <a name="SECURITYSECTION">Security Audit</a></h2><br>
+<div id="GEN.SECINTRO.1">
+ <h3>2.1. Introduction</h3><br>
+<p>Each security issue identified by Nipper is described with a finding, the impact of the issue, how easy it would be for an attacker to exploit the issue and a recommendation. Each security issue is rated based on a number of factors, each of these are described in the following sections.</p>
+<h5>2.1.1. Issue Finding</h5>
+<p>The issue finding describes what configuration setting Nipper identified that potentially poses a security threat. In addition to the finding details, any releveant background information is also described.</p>
+<h5>2.1.2. Issue Impact</h5>
+<p>The impact section describes what an attacker could gain from exploiting the security issue. The impact of an issue is often defined by other configuration settings that could heighten the issue or partially mitigate it. For example, a weak password could be partially mitigated if the access gained from using it is restricted in some way. The impact is rated depending on the significance of the security threat. Table <a href="#SEC-INTIMPACT-TABLE">2</a> outlines the possible impact ratings and their significance.<a name="SEC-INTIMPACT-TABLE"></a><table class="reporttable">
+ <caption>Table 2: Impact ratings</caption>
+ <thead>
+  <tr>
+   <th>Rating</th>
+   <th>Description</th>
+  </tr>
+</thead>
+ <tbody>
+<tr><td><font class="critical">Critical</font></td><td>These issues can pose a very significant security threat. The issues that have a critical impact are typically those that would allow an attacker to gain full administrative access to the device. For a firewall device, allowing all traffic to pass through the device unfiltered would receive this rating as filtering traffic to protect other devices is the primary purpose of a firewall.</td></tr>
+<tr class="evenrow"><td><font class="high">High</font></td><td>These issues pose a significant threat to security, but have some limitations on the extent to which they can be abused. User level access to a device and a DoS vulnerability in a critical service would fall into this category. A firewall deivce that allowed significant unfiltered access, such as allowing entire subnets through or not filtering in all directions, would fall into this category. A router that allows significant modification of its routing configuration would also fall into this category.</td></tr>
+<tr><td><font class="medium">Medium</font></td><td>These issues have significant limitations on the direct impact they can cause. Typically these issues would include significant information leakage issues, denial of service issues or those that provide significantly limited access. A SNMP service that is secured with default or a dictionary based community string would typically fall into this rating, as would a firewall that allows unfiltered access to a range of services on a device.</td></tr>
+<tr class="evenrow"><td><font class="low">Low</font></td><td>These issues represent a low level security threat. A typical issue would involve information leakage that could be useful to an attacker, such as a list of users or version details. A non-firewall device that was configured with weak network filtering would fall into this category.</td></tr>
+<tr><td><font class="informational">Info</font></td><td>These issues represent a very low level of security threat. These issues include minor information leakage, unnecessary services or legacy protocols that provide no real threat to security.</td></tr>
+ </tbody>
+</table>
+</p>
+<h5>2.1.3. Issue Ease</h5>
+<p>The ease section of each issue describes the knowledge, skill and physical access that would be required of an attacker in order to exploit it. The ease will describe if open source or commercially available tools are required for an attacker to exploit an issue. Additionally, the ease will note where an extended period of time is required to exploit the issue, such as cracking weak encryption ciphers. Each issue is rated upon how easily it can be exploited, the ratings for which are described in Table <a href="#SEC-INTEASE-TABLE">3</a>.<a name="SEC-INTEASE-TABLE"></a><table class="reporttable">
+ <caption>Table 3: Ease ratings</caption>
+ <thead>
+  <tr>
+   <th>Rating</th>
+   <th>Description</th>
+  </tr>
+</thead>
+ <tbody>
+<tr><td><font class="trivial">Trivial</font></td><td>The issue requires little-to-no knowledge on behalf of an attacker and can be exploited using standard operating system tools. A firewall device which had a network filtering configuration that enables traffic to pass through would fall into this category.</td></tr>
+<tr class="evenrow"><td><font class="easy">Easy</font></td><td>The issue requires some knowledge for an attacker to exploit, which could be performed using standard operating system tools or tools downloaded from the Internet. An administrative service without or with a default password would fall into this category, as would a simple software vulnerability exploit.</td></tr>
+<tr><td><font class="moderate">Moderate</font></td><td>The issue requires specific knowledge on behalf of an attacker. The issue could be exploited using a combination of operating system tools or publicly available tools downloaded from the Internet.</td></tr>
+<tr class="evenrow"><td><font class="challenging">Challenge</font></td><td>A security issue that falls into this category would require significant effort and knowledge on behalf of the attacker. The attacker may require specific physical access to resources or to the network infrastructure in order to successfully exploit it. Furthermore, a combination of attacks may be required.</td></tr>
+<tr><td><font class="notapplicable">N/A</font></td><td>The issue is not directly exploitable. An issue such as enabling legacy protocols or unnecessary services would fall into this rating category.</td></tr>
+ </tbody>
+</table>
+</p>
+<h5>2.1.4. Issue Recommendation</h5>
+<p>Each issue includes a recommendation section which describes what steps Nipper recommends should be taken in order to mitigate the issue. The recommendation will sometimes include various options, if several mitigating choices are available, and any relevant system commands.</p>
+<p>Directly following the recommendation, the issue dependencies and other relevant issues are referenced. The dependency issues are those that when mitigated will eliminate the described issue. For example, if the Simple Network Management Protocol (SNMP) is disabled it no longer matters if a view has not been configured. The relevant issues are ones that can affect the impact or the ease that the issue can be exploited.</p>
+<p>The recommendation includes a rating that indicates how easy an issue is to resolve, these are described in Table <a href="#SEC-INTFIX-TABLE">4</a>.<a name="SEC-INTFIX-TABLE"></a><table class="reporttable">
+ <caption>Table 4: Fix ratings</caption>
+ <thead>
+  <tr>
+   <th>Rating</th>
+   <th>Description</th>
+  </tr>
+</thead>
+ <tbody>
+<tr><td><font class="involved">Involved</font></td><td>The resolution of the issue will require significant resources to resolve and is likely to include disruption to network services, and possibly the modification of other network device configurations. The issue could involve upgrading the Cisco CSS OS and possibly modifications to the hardware.</td></tr>
+<tr class="evenrow"><td><font class="planned">Planned</font></td><td>The issue resolution involves planning, testing and could cause some disruption to services. This issue could involve changes to routing protocols and changes to network filtering.</td></tr>
+<tr><td><font class="quick">Quick</font></td><td>The issue is quick to resolve. Typically this would just involve changing a small number of settings and would have little-to-no effect on network services.</td></tr>
+ </tbody>
+</table>
+</p>
+<h5>2.1.5. Issue Overall Rating</h5>
+<p>The previous sections describe each section that is reported for an individual issue and the rating that is associated with it, they do not describe how the overall rating is calculated. The overall security issue rating is calculated based on a combination of the impact and the ease of exploiting an issue, the recommendation rating is not included as it does not represent the significance of a security issue. The overall rating uses the same ratings as the impact, but modified by how easy it is to exploit.</p>
+<p>It is worth noting that Nipper is unable to provide an accurate threat assessment due to a lack of information. For example, in the case where highly sensitive information is processed, a Denial of Service (DoS) vulnerability poses less of a threat than the integrity of the data or an attacker gaining access to it. Similarly, for a situation where uptime is critical, a DoS vulnerability could be more important than the leakage of sensitive information. The ratings provided by Nipper are intended to be a guide.</p>
+</div>
+<div id="GEN.ADMITELN.1">
+ <h3>2.2. Clear Text Telnet Service Enabled</h3><br>
+<div class="ratings">
+<font class="overallrating">Overall: <font class="high">High</font></font><br>
+Impact: <font class="high">High</font><br>
+Ease: <font class="easy">Easy</font><br>
+Fix: <font class="quick">Quick</font>
+</div>
+<div class="finding">
+<h5>2.2.1. Finding</h5><p>Telnet is widely used to provide remote command-based access to a variety of devices and is commonly used on network devices for remote administration. Telnet is a simple protocol and was developed long before computer network security was an issue. The protocol provides no encryption or encoding, so all network traffic, including the authentication, is transmitted between the client and the server in clear text.</p>
+<p>Nipper determined that the Telnet service was enabled on .</p>
+</div>
+<div class="impact">
+<h5>2.2.2. Impact</h5><p>An attacker or malicious user who was able to monitor the network traffic between a Telnet server and client would be able to capture the authentication credentials and any data. Furthermore, the attacker could then use the authentication credentials to gain a level of access to .</p>
+</div>
+<div class="ease">
+<h5>2.2.3. Ease</h5><p>Network packet and password sniffing tools are widely available on the Internet and some of the tools are specifically designed to capture clear-text protocol authentication credentials. In a switched environment an attacker may not be able to capture network traffic destined for other devices without performing an additional attack, such as exploiting Address Resolution Protocol (ARP) or routing vulnerabilities.</p>
+</div>
+<div class="recommendation">
+<h5>2.2.4. Recommendation</h5><p>Nipper recommends that, if possible, Telnet should be disabled. The Secure Shell (SSH) service is already configured on . Nipper recommends that this should be used as a cryptographically secure alternative to Telnet.</p>
+<p>The Telnet service can be disabled on Cisco CSS devices with the following command:
+<pre class="code">
+restrict telnet
+
+</pre>
+</p>
+</div>
+</div>
+<div id="GEN.ADMIFTPC.1">
+ <h3>2.3. Clear Text FTP Service Enabled</h3><br>
+<div class="ratings">
+<font class="overallrating">Overall: <font class="medium">Medium</font></font><br>
+Impact: <font class="high">High</font><br>
+Ease: <font class="easy">Easy</font><br>
+Fix: <font class="quick">Quick</font>
+</div>
+<div class="finding">
+<h5>2.3.1. Finding</h5><p>FTP is widely used to provide file transfer services. The FTP service implemented on Cisco CSS devices provides no encryption or encoding, so all network traffic, including the authentication, is transmitted between the client and the server in clear text.</p>
+<p>Nipper determined that the FTP service was enabled on .</p>
+</div>
+<div class="impact">
+<h5>2.3.2. Impact</h5><p>An attacker or malicious user who is able to monitor the network traffic between a FTP server and client would be able to capture the authentication credentials and any data. Furthermore, the attacker could then use the authentication credentials to gain a level of access to . The attacker may find that the credentials may work with other services that may give a greater level of access to .</p>
+</div>
+<div class="ease">
+<h5>2.3.3. Ease</h5><p>Network packet and password sniffing tools are widely available on the Internet and some of the tools are specifically designed to capture clear-text protocol authentication credentials. In a switched environment an attacker may not be able to capture network traffic destined for other devices without performing an additional attack, such as exploiting ARP or routing vulnerabilities.</p>
+</div>
+<div class="recommendation">
+<h5>2.3.4. Recommendation</h5><p>Nipper recommends that, if possible, FTP should be disabled.</p>
+<p>The FTP service can be disabled on Cisco CSS devices with the following command:
+<pre class="code">
+restrict ftp
+
+</pre>
+</p>
+</div>
+</div>
+<div id="GEN.FILTNOFI.1">
+ <h3>2.4. No ACLs Were Configured</h3><br>
+<div class="ratings">
+<font class="overallrating">Overall: <font class="medium">Medium</font></font><br>
+Impact: <font class="medium">Medium</font><br>
+Ease: <font class="notapplicable">N/A</font><br>
+Fix: <font class="planned">Planned</font>
+</div>
+<div class="finding">
+<h5>2.4.1. Finding</h5><p>Cisco CSS devices can be configured with Access Control List (ACL) to restrict access to network devices and services. Nipper determined that no ACL were configured on .</p>
+</div>
+<div class="impact">
+<h5>2.4.2. Impact</h5><p>With no ACL configured an attacker or malicious user could gain unauthorised access to services provided by  or other network devices.</p>
+</div>
+<div class="ease">
+<h5>2.4.3. Ease</h5><p>With no ACL a user or attacker would not be restricted by  when access network services.</p>
+</div>
+<div class="recommendation">
+<h5>2.4.4. Recommendation</h5><p>If  is not required, Nipper recommends that  is decomissioned. If  is required, Nipper recommends that ACL are configured.</p>
+<p>Nipper recommends that ACLs are configured to ensure that:<ul>
+<li>clause do not allow access from any source;</li>
+<li>clause do not allow access from a source network address;</li>
+<li>clause do not allow access to any destination;</li>
+<li>clause do not allow access to a destination network address;</li>
+<li>clause do not allow access to any destination service;</li>
+<li>clause do not allow access to a range of destination services;</li>
+<li>clause do not bypass;</li>
+<li>clause do not allow clear text protocol services;</li>
+<li>clause do not overlap or duplicate other clause;</li>
+<li>clause do not contradict other clause;</li>
+<li>no unused clause exist;</li>
+<li>no unused ACL exist.</li>
+</ul>
+</p>
+</div>
+</div>
+<div id="CSS.FILTNOAC.1">
+ <h3>2.5. ACL Were Not Active</h3><br>
+<div class="ratings">
+<font class="overallrating">Overall: <font class="medium">Medium</font></font><br>
+Impact: <font class="medium">Medium</font><br>
+Ease: <font class="notapplicable">N/A</font><br>
+Fix: <font class="planned">Planned</font>
+</div>
+<div class="finding">
+<h5>2.5.1. Finding</h5><p>ACLs are sequential lists of allow, deny and bypass clauses that determine whether network traffic is permitted or dropped. All ACLs have a hidden deny all clause as the final clause, clause 255. Regardless of whether ACLs are configured, if ACLs are not enabled on Cisco CSS devices then all traffic will be allowed.</p>
+<p>Nipper determined that ACLs are disabled.</p>
+</div>
+<div class="impact">
+<h5>2.5.2. Impact</h5><p>With ACLs disabled, an attacker could gain access to hosts and services for which they should not be able to access.</p>
+</div>
+<div class="ease">
+<h5>2.5.3. Ease</h5><p>Network traffic will not be blocked by .</p>
+</div>
+<div class="recommendation">
+<h5>2.5.4. Recommendation</h5><p>Nipper recommends that ACL should be enabled. Once enabled, all traffic is denied by default, so an ACL should be configured to permit traffic to the device prior to enabling ACLs.</p>
+<p>ACL can be enabled with the following command:
+<pre class="code">
+acl enable
+
+</pre>
+</p>
+</div>
+</div>
+<div id="GEN.ADMISSH1.1">
+ <h3>2.6. SSH Protocol Version 1 Supported</h3><br>
+<div class="ratings">
+<font class="overallrating">Overall: <font class="medium">Medium</font></font><br>
+Impact: <font class="high">High</font><br>
+Ease: <font class="moderate">Moderate</font><br>
+Fix: <font class="involved">Involved</font>
+</div>
+<div class="finding">
+<h5>2.6.1. Finding</h5><p>The SSH service is commonly used for encrypted command-based remote device management. There are two main versions of the SSH protocol and SSH servers will often support multiple versions in order to maintain backwards compatibility. SSH protocol version 2 was developed to extend the functionality and resolve the security issues that were present in protocol version 1</p>
+<p>Nipper determined that support for SSH protocol version 1 was enabled on .</p>
+</div>
+<div class="impact">
+<h5>2.6.2. Impact</h5><p>Although flaws have been identified with SSH protocol version 2, fundamental flaws exist in protocol version 1. An attacker could, for example, exploit a vulnerability in the protocol to perform a man-in-the-middle style attack and possibly gain command execution capabilities on .</p>
+</div>
+<div class="ease">
+<h5>2.6.3. Ease</h5><p>Even though the vulnerabilities with SSH protocol version 1 are widely known, exploiting the vulnerabilities can be difficult. Unless the attacker is highly motivated they are more likely to seek alternative vulnerabilities.</p>
+</div>
+<div class="recommendation">
+<h5>2.6.4. Recommendation</h5><p>Nipper recommends that the SSH service should be reconfigured to support only protocol version 2. However, the Cisco CSS OS needs to be upgraded before the SSH service can be reconfigured to support only protocol version 2.</p>
+</div>
+</div>
+<div id="GEN.ADMICOTM.1">
+ <h3>2.7. No Connection Timeout</h3><br>
+<div class="ratings">
+<font class="overallrating">Overall: <font class="medium">Medium</font></font><br>
+Impact: <font class="high">High</font><br>
+Ease: <font class="moderate">Moderate</font><br>
+Fix: <font class="quick">Quick</font>
+</div>
+<div class="finding">
+<h5>2.7.1. Finding</h5><p>The connection timeout setting is used by Cisco CSS devices to identify unused connections that can be closed. The system resources used by Cisco CSS devices can then be freed. A connection could become unused for a number of reasons; the network connection may have been disrupted, a connection may not have been properly terminated or an administrator may have left their computer with a connection open.</p>
+<p>Nipper determined that there was no connection timeout configured on .</p>
+</div>
+<div class="impact">
+<h5>2.7.2. Impact</h5><p>If a connection is not properly terminated, it may be possible for an attacker to make use of the connection in order to gain access to the device. If successful, the attacker would gain access with the privileges of the previous user.</p>
+</div>
+<div class="ease">
+<h5>2.7.3. Ease</h5><p>A malicious user may be able to exploit this issue by taking over an administrators connection if they were to leave it open. For a remote attacker to gain access to a remote connection, they would have to monitor the connection prior to an attempt to take it over. Programs that are capable of monitoring network connections are available on the Internet.</p>
+<p>With clear text protocol services being offered by , monitoring the network traffic would reveal a lot of information about the connection. The attacker may even be able to capture the authentication credentials, so would not have to attempt to take over a connection.</p>
+<p>With cryptographically secure services, gaining access to an unterminated connection could prove more difficult. The attacker may have to exploit a weakness in the protocol to gain access.</p>
+</div>
+<div class="recommendation">
+<h5>2.7.4. Recommendation</h5><p>Nipper recommends that a timeout period of 10 minutes should be configured for connections to .</p>
+<p>The Console, FTP, SSH and Telnet connection timeout can be configured on Cisco CSS with the following command:
+<pre class="code">
+idle timeout <span class="cmduser">timeout-minutes</span>
+
+</pre>
+</p>
+<p>Related security issues:<ul>
+<li>Clear Text Telnet Service Enabled (see section <a href="#GEN.ADMITELN.1">2.2</a>);</li>
+<li>SSH Protocol Version 1 Supported (see section <a href="#GEN.ADMISSH1.1">2.6</a>);</li>
+<li>Clear Text FTP Service Enabled (see section <a href="#GEN.ADMIFTPC.1">2.3</a>).</li>
+</ul>
+</p>
+</div>
+</div>
+<div id="CSS.ADMIREST.1">
+ <h3>2.8. User Administrative Restrictions Disabled</h3><br>
+<div class="ratings">
+<font class="overallrating">Overall: <font class="low">Low</font></font><br>
+Impact: <font class="high">High</font><br>
+Ease: <font class="moderate">Moderate</font><br>
+Fix: <font class="quick">Quick</font>
+</div>
+<div class="finding">
+<h5>2.8.1. Finding</h5><p>Cisco CSS devices support the configuration of different levels of user. This helps to prevent unauthorised users from modifying the devices configuration. Cisco CSS devices have a user-database
+ setting that can restrict users from making some significant changes to the configuration of . By default, users are allowed to make the changes.</p>
+<p>Nipper determined that the users had not been restricted with the user-database
+ setting on .</p>
+</div>
+<div class="impact">
+<h5>2.8.2. Impact</h5><p>A malicious user would not be prevented from creating or modifying usernames on . Furthermore, without any restrictions the user would be able to clear the running-config.</p>
+</div>
+<div class="ease">
+<h5>2.8.3. Ease</h5><p>In order for an attacker to exploit this issue the attacker would require access to  as a user. The attacker would therefore require authentication credentials and access to an administrative service.</p>
+</div>
+<div class="recommendation">
+<h5>2.8.4. Recommendation</h5><p>Nipper recommends that  should be reconfigured to prevent the devices users from clearing the running-config or creating/modifying usernames. The access restrictions can be modified to prevent all but Administrator and Technician users from performing those tasks. This can be done with the following command:
+<pre class="code">
+restrict user-database
+
+</pre>
+</p>
+</div>
+</div>
+<div id="GEN.BANRPREL.1">
+ <h3>2.9. No Pre-Logon Banner Message</h3><br>
+<div class="ratings">
+<font class="overallrating">Overall: <font class="low">Low</font></font><br>
+Impact: <font class="low">Low</font><br>
+Ease: <font class="notapplicable">N/A</font><br>
+Fix: <font class="quick">Quick</font>
+</div>
+<div class="finding">
+<h5>2.9.1. Finding</h5><p>A pre-logon banner message can be configured on Cisco CSS devices. Logon banners are useful for passing on information to users and, with a carefully worded legal warning, as a deterrant to a potential attacker.</p>
+<p>Nipper determined that no pre-logon banner was configured on .</p>
+</div>
+<div class="impact">
+<h5>2.9.2. Impact</h5><p>A pre-logon banner message is important in warning any potential attacker against unauthorised access to the Cisco CSS. With a carefully worded pre-logon banner, which warns against unauthorised access, if any legal action is taken it would be easier to prove intent on behalf of the attacker.</p>
+</div>
+<div class="ease">
+<h5>2.9.3. Ease</h5><p>Without a pre-login banner, an attacker would not be presented with a legal warning against unauthorised access prior to a logon attempt.</p>
+</div>
+<div class="recommendation">
+<h5>2.9.4. Recommendation</h5><p>Nipper recommends that a carefully worded legal banner should be configured that warns against unauthorised access to .</p>
+<p>On Cisco CSS devices, a banner message must be created with a text editor and then the file transfered to the script directory on the device. Once the banner message file is on the device, it can be configured with the following command:
+<pre class="code">
+prelogin-banner "<span class="cmduser">filename</span>"
+
+</pre>
+</p>
+</div>
+</div>
+<div id="CSS.COREDUMP.1">
+ <h3>2.10. Core Dumps Enabled</h3><br>
+<div class="ratings">
+<font class="overallrating">Overall: <font class="informational">Info</font></font><br>
+Impact: <font class="low">Low</font><br>
+Ease: <font class="challenging">Challenge</font><br>
+Fix: <font class="quick">Quick</font>
+</div>
+<div class="finding">
+<h5>2.10.1. Finding</h5><p>Cisco CSS devices have a debug option that causes the memory of the device to be written to the disk (to a core file) when a fatal error occurs. The core file enables developers and technical support to analyse what happened at the time of the fatal error. This functionality is similar to that found on UNIX systems and is enabled by default. After the fatal error has occured, Cisco CSS devices will reboot automatically.</p>
+<p>Nipper determined that core dumps were enabled on .</p>
+</div>
+<div class="impact">
+<h5>2.10.2. Impact</h5><p>An attacker who was able to repeatedly cause fatal errors on  may be able to fill the available disk space with core files. A full disk may cause  further unexpected problems.</p>
+</div>
+<div class="ease">
+<h5>2.10.3. Ease</h5><p>The attacker would have to find a vulnerability to cause the fatal errors on the device. However, if  is not adequately maintained it may fill with core files over time on its own.</p>
+</div>
+<div class="recommendation">
+<h5>2.10.4. Recommendation</h5><p>Core files are rarely examined by network administrators and are of more use to Cisco technicians when analysing software or hardware faults. Therefore Nipper recommends that, if not used, core dumps should be disabled.</p>
+<p>Core dumps can be disabled on Cisco CSS devices with the following command:
+<pre class="code">
+dump disable
+
+</pre>
+</p>
+</div>
+</div>
+<div id="GEN.INTEACTI.1">
+ <h3>2.11. Potentially Unused Network Interfaces</h3><br>
+<div class="ratings">
+<font class="overallrating">Overall: <font class="informational">Info</font></font><br>
+Impact: <font class="informational">Info</font><br>
+Ease: <font class="challenging">Challenge</font><br>
+Fix: <font class="quick">Quick</font>
+</div>
+<div class="finding">
+<h5>2.11.1. Finding</h5><p>On Cisco CSS devices it is possible to enable and disable individual network interfaces. It is good security practice to disable unused interfaces to help prevent unauthorised access to the network.</p>
+<p> Nipper determined that one interface was active and potentially unused. This is detailed below.</p>
+<p><a name="SEC-ACTINTERFACES-TABLE"></a><table class="reporttable">
+ <caption>Table 5: Network interfaces were active and potentially unused</caption>
+ <thead>
+  <tr>
+   <th>Interface</th>
+   <th>Active</th>
+   <th>VLAN</th>
+   <th>Trunk</th>
+  </tr>
+</thead>
+ <tbody>
+<tr><td>Bridge-Aggregation11</td><td>Yes</td><td>-</td><td>No</td></tr>
+ </tbody>
+</table>
+</p>
+<p></p>
+</div>
+<div class="impact">
+<h5>2.11.2. Impact</h5><p>If unused interfaces are not disabled, an attacker may be able to gain access with risking detection by unplugging an existing connection.</p>
+</div>
+<div class="ease">
+<h5>2.11.3. Ease</h5><p>The attacker would require physical access to the Cisco CSS device in order to connect to an unused network connection.</p>
+</div>
+<div class="recommendation">
+<h5>2.11.4. Recommendation</h5><p>Nipper recommends that the list of potentially unused active network connections should be reviewed and any unused interfaces disabled.</p>
+<p>Interfaces can be disabled on Cisco CSS devices with the following command:
+<pre class="code">
+shut
+
+</pre>
+</p>
+</div>
+</div>
+<div id="GEN.SECCONCL.1">
+ <h3>2.12. Conclusions</h3><br>
+<p>Nipper performed a security audit of the Cisco CSS  on Thursday 19th September 2024 and identified ten security-related issues. The most significant issue identified was rated as <font class="high">High</font>.</p>
+<p>One <font class="high">High</font> rated security issue was identified. Nipper determined that:<ul>
+<li>the clear text Telnet protocol was configured (see section <a href="#GEN.ADMITELN.1">2.2</a>).</li>
+</ul>
+</p>
+<p>Nipper identified five <font class="medium">Medium</font> rated security issues. Nipper determined that:<ul>
+<li>the clear text FTP protocol was configured (see section <a href="#GEN.ADMIFTPC.1">2.3</a>);</li>
+<li>no ACLs were configured (see section <a href="#GEN.FILTNOFI.1">2.4</a>);</li>
+<li>ACL was disabled (see section <a href="#CSS.FILTNOAC.1">2.5</a>);</li>
+<li>SSH protocol version 1 was supported (see section <a href="#GEN.ADMISSH1.1">2.6</a>);</li>
+<li>no connection timeout was configured (see section <a href="#GEN.ADMICOTM.1">2.7</a>).</li>
+</ul>
+</p>
+<p>Nipper identified two <font class="low">Low</font> rated security issues. Nipper determined that:<ul>
+<li>user administrative restrictions were disabled (see section <a href="#CSS.ADMIREST.1">2.8</a>);</li>
+<li>no pre-logon banner message was configured (see section <a href="#GEN.BANRPREL.1">2.9</a>).</li>
+</ul>
+</p>
+<p>Nipper identified two <font class="informational">Info</font> rated security issues. Nipper determined that:<ul>
+<li>core dumps were enabled (see section <a href="#CSS.COREDUMP.1">2.10</a>);</li>
+<li>a potentially unused interface was active (see section <a href="#GEN.INTEACTI.1">2.11</a>).</li>
+</ul>
+</p>
+</div>
+<div id="GEN.SECRECOM.1">
+ <h3>2.13. Recommendations</h3><br>
+<p>This section is designed to assist in the mitigation of the security issues identified by collating the security issue recommendations into a single location. The recommendations are listed in Table <a href="#SEC-RECOMMEN-TABLE">6</a> together with the issue ratings.<a name="SEC-RECOMMEN-TABLE"></a><table class="reporttable">
+ <caption>Table 6: Recommendations</caption>
+ <thead>
+  <tr>
+   <th>Issue</th>
+   <th>Overall</th>
+   <th>Impact</th>
+   <th>Ease</th>
+   <th>Fix</th>
+   <th>Recommendation</th>
+   <th>Section</th>
+  </tr>
+</thead>
+ <tbody>
+<tr><td>Clear Text Telnet Service Enabled</td><td><font class="high">High</font></td><td><font class="high">High</font></td><td><font class="easy">Easy</font></td><td><font class="quick">Quick</font></td><td>Replace Telnet with a cryptographically secure alternative.</td><td><a href="#GEN.ADMITELN.1">2.2</a></td></tr>
+<tr class="evenrow"><td>Clear Text FTP Service Enabled</td><td><font class="medium">Medium</font></td><td><font class="high">High</font></td><td><font class="easy">Easy</font></td><td><font class="quick">Quick</font></td><td>Disable the FTP service</td><td><a href="#GEN.ADMIFTPC.1">2.3</a></td></tr>
+<tr><td>No ACLs Were Configured</td><td><font class="medium">Medium</font></td><td><font class="medium">Medium</font></td><td><font class="notapplicable">N/A</font></td><td><font class="planned">Planned</font></td><td>Configure ACLs to restict access<br>or<br>decommision </td><td><a href="#GEN.FILTNOFI.1">2.4</a></td></tr>
+<tr class="evenrow"><td>ACL Were Not Active</td><td><font class="medium">Medium</font></td><td><font class="medium">Medium</font></td><td><font class="notapplicable">N/A</font></td><td><font class="planned">Planned</font></td><td>enable ACLs</td><td><a href="#CSS.FILTNOAC.1">2.5</a></td></tr>
+<tr><td>SSH Protocol Version 1 Supported</td><td><font class="medium">Medium</font></td><td><font class="high">High</font></td><td><font class="moderate">Moderate</font></td><td><font class="involved">Involved</font></td><td>Reconfigure SSH to support only version 2 of the protocol.</td><td><a href="#GEN.ADMISSH1.1">2.6</a></td></tr>
+<tr class="evenrow"><td>No Connection Timeout</td><td><font class="medium">Medium</font></td><td><font class="high">High</font></td><td><font class="moderate">Moderate</font></td><td><font class="quick">Quick</font></td><td>Configure a connection timeout of 10 minutes</td><td><a href="#GEN.ADMICOTM.1">2.7</a></td></tr>
+<tr><td>User Administrative Restrictions Disabled</td><td><font class="low">Low</font></td><td><font class="high">High</font></td><td><font class="moderate">Moderate</font></td><td><font class="quick">Quick</font></td><td>Restrict users from performing administrative tasks.</td><td><a href="#CSS.ADMIREST.1">2.8</a></td></tr>
+<tr class="evenrow"><td>No Pre-Logon Banner Message</td><td><font class="low">Low</font></td><td><font class="low">Low</font></td><td><font class="notapplicable">N/A</font></td><td><font class="quick">Quick</font></td><td>Configure a pre-logon banner message with a carefully worded legal warning</td><td><a href="#GEN.BANRPREL.1">2.9</a></td></tr>
+<tr><td>Core Dumps Enabled</td><td><font class="informational">Info</font></td><td><font class="low">Low</font></td><td><font class="challenging">Challenge</font></td><td><font class="quick">Quick</font></td><td>Disable core dumps</td><td><a href="#CSS.COREDUMP.1">2.10</a></td></tr>
+<tr class="evenrow"><td>Potentially Unused Network Interfaces</td><td><font class="informational">Info</font></td><td><font class="informational">Info</font></td><td><font class="challenging">Challenge</font></td><td><font class="quick">Quick</font></td><td>Disable all unused interfaces</td><td><a href="#GEN.INTEACTI.1">2.11</a></td></tr>
+ </tbody>
+</table>
+</p>
+</div>
+</div>
+<div id="configuration">
+ <h2>3. <a name="CONFIGURATIONSECTION">Device Configuration</a></h2><br>
+<div id="CONFIG-INTRODUCTION">
+ <h3>3.1. Introduction</h3><br>
+<p>This section details the configuration settings of the Cisco CSS device .</p>
+</div>
+<div id="CONFIG-GENERAL">
+ <h3>3.2. General Device Settings</h3><br>
+<p><a name="CONFIG-GENERAL-TABLE"></a><table class="reporttable">
+ <caption>Table 7: General device settings</caption>
+ <thead>
+  <tr>
+   <th>Description</th>
+   <th>Setting</th>
+  </tr>
+</thead>
+ <tbody>
+<tr><td>Core Dumps</td><td>Enabled</td></tr>
+ </tbody>
+</table>
+</p>
+</div>
+<div id="CONFIG-SERVICES">
+ <h3>3.3. Network Services</h3><br>
+<p>Table <a href="#CONFIG-SERVICES-TABLE">8</a> outlines the network services supported by Cisco CSS devices and their status on . The service settings are described in greater detail in the proceeding sections.<a name="CONFIG-SERVICES-TABLE"></a><table class="reporttable">
+ <caption>Table 8: Network services</caption>
+ <thead>
+  <tr>
+   <th>Service</th>
+   <th>Status</th>
+  </tr>
+</thead>
+ <tbody>
+<tr><td>CVDM Service</td><td>Disabled</td></tr>
+<tr class="evenrow"><td>Telnet Service</td><td>Enabled</td></tr>
+<tr><td>SSH Service</td><td>Enabled</td></tr>
+<tr class="evenrow"><td>XML Service</td><td>Disabled</td></tr>
+<tr><td>FTP Service</td><td>Enabled</td></tr>
+<tr class="evenrow"><td>DNS Service</td><td>Disabled</td></tr>
+<tr><td>SNMP Service</td><td>Disabled</td></tr>
+ </tbody>
+</table>
+</p>
+</div>
+<div id="CONFIG-ADMIN">
+ <h3>3.4. Administration Settings</h3><br>
+<p>This section describes the services that are supported by Cisco CSS for administration. Each subsection covers a particular service and its configuration settings.</p>
+<h5>3.4.1. General Administration Settings</h5>
+<p>This section describes some general Cisco CSS device settings.<a name="CONFIG-ADMINGENERAL-TABLE"></a><table class="reporttable">
+ <caption>Table 9: General administration settings</caption>
+ <thead>
+  <tr>
+   <th>Description</th>
+   <th>Setting</th>
+  </tr>
+</thead>
+ <tbody>
+<tr><td>Console Port</td><td>Disabled</td></tr>
+<tr class="evenrow"><td>Service Connection Timeout</td><td>No Timeout</td></tr>
+<tr><td>User Administrative Restrictions</td><td>Disabled</td></tr>
+<tr class="evenrow"><td>CVDM Service</td><td>Disabled</td></tr>
+ </tbody>
+</table>
+</p>
+<h5>3.4.2. Telnet Service Settings</h5>
+<p>The Telnet service enables remote administrative access to a Command Line Interface (CLI) on . The Telnet protocol implemented by the service is simple and provides no encryption of the network communications between the client and the server. This section details the Telnet service settings.<a name="CONFIG-ADMINTELNET-TABLE"></a><table class="reporttable">
+ <caption>Table 10: Telnet service settings</caption>
+ <thead>
+  <tr>
+   <th>Description</th>
+   <th>Setting</th>
+  </tr>
+</thead>
+ <tbody>
+<tr><td>Telnet Service</td><td>Enabled</td></tr>
+<tr class="evenrow"><td>Service TCP Port</td><td>23</td></tr>
+ </tbody>
+</table>
+</p>
+<h5>3.4.3. SSH Service Settings</h5>
+<p>The SSH service enables a remote administrator to access a CLI on . The SSH protocol provides complete encryption of the network packets between the connecting client and the server. There are two main versions of the SSH protocol.</p>
+<p>Cisco CSS devices support SSH protocol version 1 and from CSS OS version 7.50 Cisco CSS devices support protocol version 2.</p>
+<p>This section details the SSH service settings.<a name="CONFIG-ADMINSSH-TABLE"></a><table class="reporttable">
+ <caption>Table 11: SSH service settings</caption>
+ <thead>
+  <tr>
+   <th>Description</th>
+   <th>Setting</th>
+  </tr>
+</thead>
+ <tbody>
+<tr><td>SSH Service</td><td>Enabled</td></tr>
+<tr class="evenrow"><td>Service TCP Port</td><td>22</td></tr>
+<tr><td>SSH Protocol Version(s)</td><td>1</td></tr>
+<tr class="evenrow"><td>SSH Server Key Length</td><td>768 bits</td></tr>
+<tr><td>SSH Keep Alive Messages</td><td>Enabled</td></tr>
+ </tbody>
+</table>
+</p>
+<h5>3.4.4. XML Service Settings</h5>
+<p>Cisco CSS devices can provide web-based administrative access. The Extensible Markup Language (XML) service provides no encryption between the client and server. This section details the web service settings:<a name="CONFIG-ADMINHTTP-TABLE"></a><table class="reporttable">
+ <caption>Table 12: XML service settings</caption>
+ <thead>
+  <tr>
+   <th>Description</th>
+   <th>Setting</th>
+  </tr>
+</thead>
+ <tbody>
+<tr><td>XML Service</td><td>Disabled</td></tr>
+<tr class="evenrow"><td>XML Service TCP Port</td><td>80</td></tr>
+ </tbody>
+</table>
+</p>
+<h5>3.4.5. FTP Service Settings</h5>
+<p>The FTP service enables a remote administrators to transfer files to and from . The authentication and transfer of files between the FTP service and client are unencrypted. This section details the FTP service settings.<a name="CONFIG-ADMINFTP-TABLE"></a><table class="reporttable">
+ <caption>Table 13: FTP service settings</caption>
+ <thead>
+  <tr>
+   <th>Description</th>
+   <th>Setting</th>
+  </tr>
+</thead>
+ <tbody>
+<tr><td>FTP Service</td><td>Enabled</td></tr>
+<tr class="evenrow"><td>Service TCP Port</td><td>21</td></tr>
+ </tbody>
+</table>
+</p>
+</div>
+<div id="CONFIG-DNS">
+ <h3>3.5. Name Resolution Settings</h3><br>
+<p>Cisco CSS devices have can be configured to act as a Domain Name System (DNS) server and perform name lookups. This section details the domain naming settings.</p>
+<h5>3.5.1. DNS Client Configuration</h5>
+<p>The DNS service stores information about mappings between a devices IP address and a name, which is easier for humans to recognise and remember. Cisco CSS devices can be configured to query a DNS in order to resolve names to addresses. This section details those configuration settings.<a name="CONFIG-DNSCLIENT-TABLE"></a><table class="reporttable">
+ <caption>Table 14: DNS client configuration</caption>
+ <thead>
+  <tr>
+   <th>Description</th>
+   <th>Setting</th>
+  </tr>
+</thead>
+ <tbody>
+<tr><td>DNS Lookups</td><td>Disabled</td></tr>
+ </tbody>
+</table>
+</p>
+<h5>3.5.2. DNS Server Configuration</h5>
+<p>Cisco CSS devices can be configured to offer the DNS service to hosts on the network. This section details the DNS service.<a name="CONFIG-DNSSERVER-TABLE"></a><table class="reporttable">
+ <caption>Table 15: DNS server configuration</caption>
+ <thead>
+  <tr>
+   <th>Description</th>
+   <th>Setting</th>
+  </tr>
+</thead>
+ <tbody>
+<tr><td>DNS Service</td><td>Disabled</td></tr>
+<tr class="evenrow"><td>DNS Service Port</td><td>53</td></tr>
+ </tbody>
+</table>
+</p>
+</div>
+<div id="CONFIG-SNMP">
+ <h3>3.6. SNMP Settings</h3><br>
+<p>SNMP is used to assist network administrators in monitoring and managing a wide variety of network devices. There are three main versions of SNMP in use. Versions 1 and 2 of SNMP are both secured with a community string and authenticate and transmit network packets without any form of encryption. SNMP version 3 provides several levels of authentication and encryption. The most basic level provides a similar protection to that of the earlier protocol versions. However, SNMP version 3 can be configured to provide encrypted authentication (auth) and secured further with support for encrypted data communications (priv).</p>
+<p>Cisco CSS support only SNMP versions 1 and 2c. This section describes the  SNMP configuration settings.<a name="CONFIG-SNMP-TABLE"></a><table class="reporttable">
+ <caption>Table 16: SNMP settings</caption>
+ <thead>
+  <tr>
+   <th>Description</th>
+   <th>Setting</th>
+  </tr>
+</thead>
+ <tbody>
+<tr><td>SNMP Service</td><td>Disabled</td></tr>
+<tr class="evenrow"><td>SNMP Service UDP Port</td><td>161</td></tr>
+<tr><td>SNMP Trap Source</td><td>Management</td></tr>
+<tr class="evenrow"><td>Server Reloads</td><td>Disabled</td></tr>
+ </tbody>
+</table>
+</p>
+</div>
+<div id="CONFIG-INTERFACE">
+ <h3>3.7. Network Interface Settings</h3><br>
+<p>The section details the Cisco CSS devices network interface configuration settings.</p>
+<h5>3.7.1. Network Interfaces</h5>
+<p>This section describes the configuration of the Cisco CSS devices network interfaces.<a name="CONFIG-INTERFACES-TABLE"></a><table class="reporttable">
+ <caption>Table 17: Network interfaces</caption>
+ <thead>
+  <tr>
+   <th>Interface</th>
+   <th>Active</th>
+   <th>VLAN</th>
+   <th>Trunk</th>
+  </tr>
+</thead>
+ <tbody>
+<tr><td>Bridge-Aggregation11</td><td>Yes</td><td>-</td><td>No</td></tr>
+ </tbody>
+</table>
+</p>
+<p></p>
+</div>
+</div>
+<div id="appendix">
+ <h2>4. <a name="APPENDIXSECTION">Appendix</a></h2><br>
+<div id="APPENDIX-ABBREV">
+ <h3>4.1. Abbreviations</h3><br>
+<p><a name="APPENDIX-ABBREV-TABLE"></a><table class="reporttable">
+ <caption>Table 18: Abbreviations</caption>
+ <thead>
+  <tr>
+   <th>Abbreviation</th>
+   <th>Description</th>
+  </tr>
+</thead>
+ <tbody>
+<tr><td>ACL</td><td>Access Control List</td></tr>
+<tr class="evenrow"><td>ARP</td><td>Address Resolution Protocol</td></tr>
+<tr><td>CLI</td><td>Command Line Interface</td></tr>
+<tr class="evenrow"><td>CVDM</td><td>Cisco View Device Manager</td></tr>
+<tr><td>DNS</td><td>Domain Name System</td></tr>
+<tr class="evenrow"><td>DoS</td><td>Denial of Service</td></tr>
+<tr><td>FTP</td><td>File Transfer Protocol</td></tr>
+<tr class="evenrow"><td>IP</td><td>Internet Protocol</td></tr>
+<tr><td>SNMP</td><td>Simple Network Management Protocol</td></tr>
+<tr class="evenrow"><td>SSH</td><td>Secure Shell</td></tr>
+<tr><td>TCP</td><td>Transmission Control Protocol</td></tr>
+<tr class="evenrow"><td>UDP</td><td>User Datagram Protocol</td></tr>
+<tr><td>VLAN</td><td>Virtual Local Area Network</td></tr>
+<tr class="evenrow"><td>XML</td><td>Extensible Markup Language</td></tr>
+ </tbody>
+</table>
+</p>
+</div>
+<div id="APPENDIX-PORTS">
+ <h3>4.2. Common Network Ports</h3><br>
+<p><a name="APPENDIX-PORTS-TABLE"></a><table class="reporttable">
+ <caption>Table 19: Common network ports</caption>
+ <thead>
+  <tr>
+   <th>Port</th>
+   <th>Network Service</th>
+  </tr>
+</thead>
+ <tbody>
+<tr><td>21</td><td>FTP</td></tr>
+<tr class="evenrow"><td>22</td><td>SSH</td></tr>
+<tr><td>23</td><td>Telnet</td></tr>
+<tr class="evenrow"><td>161</td><td>SNMP</td></tr>
+ </tbody>
+</table>
+</p>
+</div>
+<div id="APPENDIX-PROTOCOLS">
+ <h3>4.3. IP Protocols</h3><br>
+<p><a name="APPENDIX-PROTOCOL-TABLE"></a><table class="reporttable">
+ <caption>Table 20: IP protocols</caption>
+ <thead>
+  <tr>
+   <th>Protocol</th>
+   <th>Name</th>
+   <th>Description</th>
+   <th>RFC</th>
+  </tr>
+</thead>
+ <tbody>
+<tr><td>1</td><td>ICMP</td><td>Internet Control Message</td><td>RFC792</td></tr>
+<tr class="evenrow"><td>4</td><td>IP</td><td>IP in IP (encapsulation)</td><td>RFC2003</td></tr>
+<tr><td>6</td><td>TCP</td><td>Transmission Control Protocol</td><td>RFC793</td></tr>
+<tr class="evenrow"><td>17</td><td>UDP</td><td>User Datagram Protocol</td><td>RFC768</td></tr>
+ </tbody>
+</table>
+</p>
+</div>
+<div id="APPENDIX-ICMPTYPES">
+ <h3>4.4. ICMP Types</h3><br>
+<p><a name="APPENDIX-ICMPTYPES-TABLE"></a><table class="reporttable">
+ <caption>Table 21: ICMP types</caption>
+ <thead>
+  <tr>
+   <th>Type</th>
+   <th>Code</th>
+   <th>Description</th>
+   <th>RFC</th>
+  </tr>
+</thead>
+ <tbody>
+<tr><td>0</td><td>-</td><td>Echo Reply</td><td>RFC792</td></tr>
+<tr class="evenrow"><td>8</td><td>-</td><td>Echo</td><td>RFC792</td></tr>
+ </tbody>
+</table>
+</p>
+</div>
+<div id="APPENDIX-NIPPERVER">
+ <h3>4.5. Nipper Details</h3><br>
+<p>This report was generated using Nipper version 0.12.6.</p>
+<p>Nipper is an Open Source tool designed to assist security professionals and network system administrators securely configure network infrastructure devices. More information on Nipper and how you can contribute to the project are on the projects web site <a href="http://nipper.titania.co.uk">http://nipper.titania.co.uk</a>.</p>
+</div>
+</div>
+</body>
+</html>
